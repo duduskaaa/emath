@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
@@ -25,7 +26,17 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponseDto getById(Long id) {
         Teacher teacher = teacherRepository.getTeacherById(id);
-        return teacherMapper.toResponseDto(teacher);
+        return teacherMapper.toTeacherResponseDto(teacher);
+    }
+
+    @Override
+    public List<TeacherResponseDto> getAll() {
+        List<TeacherResponseDto> teachers = teacherRepository.findAll()
+                .stream()
+                .map(teacherMapper::toTeacherResponseDto)
+                .toList();
+
+        return teachers;
     }
 
     @Override

@@ -3,10 +3,14 @@ package com.khatep.teacher.service;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 
+import java.util.List;
+
 public interface TeacherService {
     void create(TeacherRequestDto teacherDto);
 
     TeacherResponseDto getById(Long id);
+
+    List<TeacherResponseDto> getAll();
 
     void update(Long id);
 
