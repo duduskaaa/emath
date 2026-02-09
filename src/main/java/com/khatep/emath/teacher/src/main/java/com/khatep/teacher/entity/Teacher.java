@@ -1,18 +1,43 @@
 package com.khatep.teacher.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "teachers")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Teacher {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String firstName;
 
-    public Long getId() {
-        return id;
-    }
+    private String lastName;
+
+    @Column(unique = true)
+    private String email;
+
+    private String phoneNumber;
+
+    private LocalDate hireDate;
+
+    private String subject;
+
+    private Boolean active;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
+
