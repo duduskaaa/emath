@@ -5,10 +5,10 @@ import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/teachers")
 @RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;

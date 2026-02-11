@@ -9,8 +9,8 @@ import com.khatep.teacher.service.TeacherService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
@@ -18,8 +18,9 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public void create(TeacherRequestDto teacherRequestDto) {
-        Teacher teacher = teacherMapper.toTeacher(teacherRequestDto);
+    public void create(TeacherRequestDto dto) {
+        Teacher teacher = teacherMapper.toTeacher(dto);
+
         teacherRepository.save(teacher);
     }
 
