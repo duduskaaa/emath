@@ -6,13 +6,13 @@ import com.khatep.teacher.dto.TeacherResponseDto;
 import java.util.List;
 
 public interface TeacherService {
-    void create(TeacherRequestDto teacherDto);
+    void create(TeacherRequestDto teacherRequestDto);
 
     TeacherResponseDto getById(Long id);
 
     List<TeacherResponseDto> getAll();
 
-    void update(Long id);
+    void update(Long id, TeacherRequestDto teacherRequestDto);
 
     void delete(Long id);
 }

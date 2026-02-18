@@ -18,15 +18,16 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
 
     @Override
-    public void create(TeacherRequestDto dto) {
-        Teacher teacher = teacherMapper.toTeacher(dto);
+    public void create(TeacherRequestDto teacherRequestDto) {
+        Teacher teacher = teacherMapper.toTeacher(teacherRequestDto);
 
         teacherRepository.save(teacher);
     }
 
     @Override
     public TeacherResponseDto getById(Long id) {
-        Teacher teacher = teacherRepository.getTeacherById(id);
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow();
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
@@ -42,8 +43,11 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public void update(Long id) {
-
+    public void update(Long id, TeacherRequestDto teacherRequestDto) {
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow();
+        teacher = teacherMapper.updateTeacherFromDto(teacherRequestDto, teacher);
+        teacherRepository.save(teacher);
     }
 
     @Override
