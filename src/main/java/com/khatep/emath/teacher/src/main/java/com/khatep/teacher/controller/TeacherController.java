@@ -4,6 +4,7 @@ import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public TeacherResponseDto getTeacherById(@PathVariable Long id) {
-        return teacherService.getById(id);
+    public ResponseEntity<TeacherResponseDto> getTeacherById(@PathVariable Long id) {
+        return ResponseEntity.ok(teacherService.getById(id));
     }
 
     @PostMapping
@@ -28,10 +29,9 @@ public class TeacherController {
         teacherService.create(dto);
     }
 
-    @PutMapping("/{id}")
-    //TODO: Add update methods for other fields
-    public void update(@PathVariable Long id) {
-        teacherService.update(id);
+    @PatchMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody TeacherRequestDto dto) {
+        teacherService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
