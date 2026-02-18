@@ -30,6 +30,10 @@ public class Teacher {
 
     private String phoneNumber;
 
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean active = true;
+
     private LocalDate hireDate;
 
     private String subject;
