@@ -10,8 +10,5 @@ import org.mapstruct.Mapping;
 public interface TeacherMapper {
     TeacherResponseDto toTeacherResponseDto(Teacher teacher);
 
-
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "lastName", target = "lastName")
     Teacher toTeacher(TeacherRequestDto teacherRequestDto);
 }
