@@ -1,4 +1,4 @@
-package com.khatep.teacher.exceptions.handler;
+package com.khatep.teacher.exceptions.base;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

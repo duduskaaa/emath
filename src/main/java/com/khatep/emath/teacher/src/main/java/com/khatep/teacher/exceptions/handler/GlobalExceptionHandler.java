@@ -1,5 +1,6 @@
 package com.khatep.teacher.exceptions.handler;
 
+import com.khatep.teacher.exceptions.base.BaseException;
 import com.khatep.teacher.exceptions.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
