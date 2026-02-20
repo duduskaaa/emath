@@ -1,6 +1,6 @@
 package com.khatep.teacher.exceptions.business;
 
-import com.khatep.teacher.exceptions.handler.BaseException;
+import com.khatep.teacher.exceptions.base.BaseException;
 import org.springframework.http.HttpStatus;
 
 public class TeacherNotFoundByEmailException extends BaseException {
