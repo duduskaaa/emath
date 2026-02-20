@@ -3,6 +3,7 @@ package com.khatep.teacher.controller;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +26,19 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.getById(id));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<TeacherResponseDto> getTeacherByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(teacherService.getByEmail(email));
+    }
+
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody TeacherRequestDto dto) {
         teacherService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody TeacherRequestDto dto) {
+    public void update(@PathVariable Long id, @Valid @RequestBody TeacherRequestDto dto) {
         teacherService.update(id, dto);
     }
 
