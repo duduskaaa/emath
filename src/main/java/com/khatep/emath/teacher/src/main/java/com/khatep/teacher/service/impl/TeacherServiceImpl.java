@@ -33,6 +33,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public TeacherResponseDto getByEmail(String email) {
+        Teacher teacher = teacherRepository.findByEmail(email)
+                .orElseThrow(() -> new TeacherNotFoundByEmailException("Teacher with email" +email+ " not found"));
+        return teacherMapper.toTeacherResponseDto(teacher);
+    }
+
+    @Override
     public List<TeacherResponseDto> getAll() {
         List<TeacherResponseDto> teachers = teacherRepository.findAll()
                 .stream()
