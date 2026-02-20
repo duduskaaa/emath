@@ -4,6 +4,7 @@ import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -25,8 +26,9 @@ public class TeacherController {
     }
 
     @PostMapping
-    public void create(@RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> create(@RequestBody TeacherRequestDto dto) {
         teacherService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/{id}")
