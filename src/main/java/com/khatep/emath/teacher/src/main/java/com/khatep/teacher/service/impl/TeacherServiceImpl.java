@@ -42,7 +42,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<TeacherResponseDto> getAll() {
-        List<TeacherResponseDto> teachers = teacherRepository.findAll()
+        return teacherRepository.findAll()
                 .stream()
                 .map(teacherMapper::toTeacherResponseDto)
                 .toList();
