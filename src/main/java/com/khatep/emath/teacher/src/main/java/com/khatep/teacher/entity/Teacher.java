@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
