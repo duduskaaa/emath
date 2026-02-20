@@ -1,5 +1,6 @@
 package com.khatep.teacher.service.impl;
 
+import com.khatep.teacher.exceptions.business.TeacherNotFound;
 import com.khatep.teacher.repository.TeacherRepository;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
@@ -27,7 +28,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponseDto getById(Long id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new TeacherNotFound("Teacher with id " + id + " not found"));
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
