@@ -1,13 +1,14 @@
 package com.khatep.teacher.service.impl;
 
-import com.khatep.teacher.exceptions.business.TeacherNotFound;
+import com.khatep.teacher.exceptions.business.TeacherNotFoundByEmailException;
+import com.khatep.teacher.exceptions.business.TeacherNotFoundByIdException;
 import com.khatep.teacher.repository.TeacherRepository;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.entity.Teacher;
 import com.khatep.teacher.mapper.TeacherMapper;
 import com.khatep.teacher.service.TeacherService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -28,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponseDto getById(Long id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(() -> new TeacherNotFound("Teacher with id " + id + " not found"));
+                .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " + id + " not found"));
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
