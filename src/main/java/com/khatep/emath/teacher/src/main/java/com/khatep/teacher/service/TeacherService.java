@@ -10,6 +10,8 @@ public interface TeacherService {
 
     TeacherResponseDto getById(Long id);
 
+    TeacherResponseDto getByEmail(String email);
+
     List<TeacherResponseDto> getAll();
 
     void update(Long id, TeacherRequestDto teacherRequestDto);
