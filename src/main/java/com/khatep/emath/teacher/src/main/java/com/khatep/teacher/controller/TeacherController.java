@@ -33,8 +33,8 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.getById(id));
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<TeacherResponseDto> getTeacherByEmail(@PathVariable String email) {
+    @GetMapping(params = "email")
+    public ResponseEntity<TeacherResponseDto> getTeacherByEmail(@RequestParam String email) {
         return ResponseEntity.ok(teacherService.getByEmail(email));
     }
 
