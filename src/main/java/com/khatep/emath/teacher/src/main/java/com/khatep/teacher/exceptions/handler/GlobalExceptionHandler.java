@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ErrorResponse> handleBusinessError(BaseException ex) {
-        log.error("Business error {}", ex.getMessage());
+        log.error("Business error: {}", ex.getMessage());
 
         return buildErrorResponse(
                 ex.getHttpStatus(),
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationError(MethodArgumentNotValidException ex) {
-        log.error("Validation error {}", ex.getMessage());
+        log.error("Validation error: {}", ex.getMessage());
 
         String message = ex.getBindingResult().getFieldErrors()
                 .stream()
