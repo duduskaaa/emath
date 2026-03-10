@@ -46,15 +46,13 @@ public class TeacherServiceImpl implements TeacherService {
                 .stream()
                 .map(teacherMapper::toTeacherResponseDto)
                 .toList();
-
-        return teachers;
     }
 
     @Override
     @Transactional
     public void update(Long id, TeacherRequestDto teacherRequestDto) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " +id+ " not found"));
         teacher = teacherMapper.updateTeacherFromDto(teacherRequestDto, teacher);
         teacherRepository.save(teacher);
     }
