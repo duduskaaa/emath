@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TeacherRequestDto {
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String firstName;
 
-    @NotBlank(groups = OnCreate.class)
+    @NotBlank
     private String lastName;
 
-    @NotBlank(groups = OnCreate.class)
-    @Email(groups = {OnCreate.class, OnUpdate.class})
+    @NotBlank
+    @Email
     private String email;
 
     private String phoneNumber;

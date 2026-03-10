@@ -1,9 +1,6 @@
 package com.khatep.teacher.controller;
 
-import com.khatep.teacher.dto.OnCreate;
-import com.khatep.teacher.dto.OnUpdate;
-import com.khatep.teacher.dto.TeacherRequestDto;
-import com.khatep.teacher.dto.TeacherResponseDto;
+import com.khatep.teacher.dto.*;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
@@ -12,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -39,13 +35,13 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Validated(OnCreate.class) @RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> create(@Validated @RequestBody TeacherRequestDto dto) {
         teacherService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @Validated(OnUpdate.class) @RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Validated @RequestBody TeacherUpdateRequestDto dto) {
         teacherService.update(id, dto);
         return ResponseEntity.noContent().build();
     }
