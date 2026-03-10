@@ -6,6 +6,8 @@ import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,8 +21,11 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping
-    public ResponseEntity<List<TeacherResponseDto>> getAll() {
-        return ResponseEntity.ok(teacherService.getAll());
+    public ResponseEntity<PagedModel<EntityModel<TeacherResponseDto>>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size)
+    {
+        return ResponseEntity.ok(teacherService.getAll(page, size));
     }
 
     @GetMapping("/{id}")

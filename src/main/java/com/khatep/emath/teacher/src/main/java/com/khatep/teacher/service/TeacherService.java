@@ -2,6 +2,8 @@ package com.khatep.teacher.service;
 
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface TeacherService {
 
     TeacherResponseDto getByEmail(String email);
 
-    List<TeacherResponseDto> getAll();
+    PagedModel<EntityModel<TeacherResponseDto>> getAll(int page, int size);
 
     void update(Long id, TeacherRequestDto teacherRequestDto);
 

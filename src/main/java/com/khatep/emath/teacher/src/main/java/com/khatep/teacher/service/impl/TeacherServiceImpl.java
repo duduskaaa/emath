@@ -8,16 +8,22 @@ import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.entity.Teacher;
 import com.khatep.teacher.mapper.TeacherMapper;
 import com.khatep.teacher.service.TeacherService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherMapper teacherMapper;
     private final TeacherRepository teacherRepository;
+    private final PagedResourcesAssembler<TeacherResponseDto> assembler;
 
     @Override
     public void create(TeacherRequestDto teacherRequestDto) {
@@ -41,11 +47,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<TeacherResponseDto> getAll() {
-        return teacherRepository.findAll()
-                .stream()
-                .map(teacherMapper::toTeacherResponseDto)
-                .toList();
+    public PagedModel<EntityModel<TeacherResponseDto>> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TeacherResponseDto> dtoPage = teacherRepository.findAll(pageable)
+                .map(teacherMapper::toTeacherResponseDto);
+        return assembler.toModel(dtoPage, EntityModel::of);
     }
 
     @Override
