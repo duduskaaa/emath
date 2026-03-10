@@ -1,5 +1,6 @@
 package com.khatep.teacher.service.impl;
 
+import com.khatep.teacher.dto.TeacherUpdateRequestDto;
 import com.khatep.teacher.exceptions.business.TeacherNotFoundByEmailException;
 import com.khatep.teacher.exceptions.business.TeacherNotFoundByIdException;
 import com.khatep.teacher.repository.TeacherRepository;
@@ -56,16 +57,16 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     @Transactional
-    public void update(Long id, TeacherRequestDto teacherRequestDto) {
+    public void update(Long id, TeacherUpdateRequestDto teacherUpdateRequestDto) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " +id+ " not found"));
-        teacherMapper.updateTeacherFromDto(teacherRequestDto, teacher);
+        teacherMapper.updateTeacherFromDto(teacherUpdateRequestDto, teacher);
     }
 
     @Override
     public void delete(Long id) {
         if (!teacherRepository.existsById(id))
-            throw new TeacherNotFoundByIdException("Teacher with id+ "+id+ "not found");
+            throw new TeacherNotFoundByIdException("Teacher with id "+id+ " not found");
         teacherRepository.deleteById(id);
     }
 }

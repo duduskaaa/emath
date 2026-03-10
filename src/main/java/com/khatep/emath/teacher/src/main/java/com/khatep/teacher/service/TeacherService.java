@@ -2,10 +2,9 @@ package com.khatep.teacher.service;
 
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
+import com.khatep.teacher.dto.TeacherUpdateRequestDto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
-
-import java.util.List;
 
 public interface TeacherService {
     void create(TeacherRequestDto teacherRequestDto);
@@ -16,7 +15,7 @@ public interface TeacherService {
 
     PagedModel<EntityModel<TeacherResponseDto>> getAll(int page, int size);
 
-    void update(Long id, TeacherRequestDto teacherRequestDto);
+    void update(Long id, TeacherUpdateRequestDto teacherUpdateRequestDto);
 
     void delete(Long id);
 }

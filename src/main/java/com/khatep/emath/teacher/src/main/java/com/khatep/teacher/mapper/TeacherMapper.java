@@ -2,6 +2,7 @@ package com.khatep.teacher.mapper;
 
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
+import com.khatep.teacher.dto.TeacherUpdateRequestDto;
 import com.khatep.teacher.entity.Teacher;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -15,5 +16,5 @@ public interface TeacherMapper {
     Teacher toTeacher(TeacherRequestDto teacherRequestDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Teacher updateTeacherFromDto(TeacherRequestDto teacherRequestDto, @MappingTarget Teacher teacher);
+    Teacher updateTeacherFromDto(TeacherUpdateRequestDto teacherUpdateRequestDto, @MappingTarget Teacher teacher);
 }
