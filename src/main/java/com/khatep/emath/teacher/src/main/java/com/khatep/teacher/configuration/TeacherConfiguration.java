@@ -1,4 +1,4 @@
-package com.khatep.teacher;
+package com.khatep.teacher.configuration;
 
 import org.springframework.context.annotation.Configuration;
 
