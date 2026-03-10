@@ -42,7 +42,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponseDto getByEmail(String email) {
         Teacher teacher = teacherRepository.findByEmail(email)
-                .orElseThrow(() -> new TeacherNotFoundByEmailException("Teacher with email" +email+ " not found"));
+                .orElseThrow(() -> new TeacherNotFoundByEmailException("Teacher with email " +email+ " not found"));
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
@@ -59,12 +59,13 @@ public class TeacherServiceImpl implements TeacherService {
     public void update(Long id, TeacherRequestDto teacherRequestDto) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " +id+ " not found"));
-        teacher = teacherMapper.updateTeacherFromDto(teacherRequestDto, teacher);
-        teacherRepository.save(teacher);
+        teacherMapper.updateTeacherFromDto(teacherRequestDto, teacher);
     }
 
     @Override
     public void delete(Long id) {
+        if (!teacherRepository.existsById(id))
+            throw new TeacherNotFoundByIdException("Teacher with id+ "+id+ "not found");
         teacherRepository.deleteById(id);
     }
 }
