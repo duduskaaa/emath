@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public record ErrorResponse(
         LocalDateTime timestamp,
-        int status,
+        org.springframework.http.HttpStatus status,
         String error,
         String message
 ) {}
