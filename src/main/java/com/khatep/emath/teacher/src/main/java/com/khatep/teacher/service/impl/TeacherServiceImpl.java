@@ -1,8 +1,7 @@
 package com.khatep.teacher.service.impl;
 
 import com.khatep.teacher.dto.TeacherUpdateRequestDto;
-import com.khatep.teacher.exceptions.business.TeacherNotFoundByEmailException;
-import com.khatep.teacher.exceptions.business.TeacherNotFoundByIdException;
+import com.khatep.teacher.exceptions.business.TeacherNotFoundException;
 import com.khatep.teacher.repository.TeacherRepository;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
@@ -12,6 +11,7 @@ import com.khatep.teacher.service.TeacherService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,14 +32,14 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherResponseDto getById(Long id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " + id + " not found"));
+                .orElseThrow(() -> new TeacherNotFoundException("Teacher with id " + id + " not found"));
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
     @Override
     public TeacherResponseDto getByEmail(String email) {
         Teacher teacher = teacherRepository.findByEmail(email)
-                .orElseThrow(() -> new TeacherNotFoundByEmailException("Teacher with email " +email+ " not found"));
+                .orElseThrow(() -> new TeacherNotFoundException("Teacher with email " +email+ " not found"));
         return teacherMapper.toTeacherResponseDto(teacher);
     }
 
@@ -54,14 +54,14 @@ public class TeacherServiceImpl implements TeacherService {
     @Transactional
     public void update(Long id, TeacherUpdateRequestDto teacherUpdateRequestDto) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(() -> new TeacherNotFoundByIdException("Teacher with id " +id+ " not found"));
+                .orElseThrow(() -> new TeacherNotFoundException("Teacher with id " +id+ " not found"));
         teacherMapper.updateTeacherFromDto(teacherUpdateRequestDto, teacher);
     }
 
     @Override
     public void delete(Long id) {
-        if (!teacherRepository.existsById(id))
-            throw new TeacherNotFoundByIdException("Teacher with id "+id+ " not found");
-        teacherRepository.deleteById(id);
+        int deleted = teacherRepository.deleteByIdReturningCount(id);
+        if (deleted == 0)
+            throw new TeacherNotFoundException("Teacher with id " + id + " not found");
     }
 }
