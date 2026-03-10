@@ -3,6 +3,8 @@ package com.khatep.teacher.controller;
 import com.khatep.teacher.dto.*;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -15,13 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TeacherController {
     private final TeacherService teacherService;
+    private final PagedResourcesAssembler<TeacherResponseDto> assembler;
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<TeacherResponseDto>>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size)
     {
-        return ResponseEntity.ok(teacherService.getAll(page, size));
+        Page<TeacherResponseDto> dtoPage = teacherService.getAll(page, size);
+        return ResponseEntity.ok(assembler.toModel(dtoPage, EntityModel::of));
     }
 
     @GetMapping("/{id}")
