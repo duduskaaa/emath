@@ -1,12 +1,14 @@
 package com.khatep.teacher.controller;
 
+import com.khatep.teacher.dto.OnCreate;
+import com.khatep.teacher.dto.OnUpdate;
 import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.service.TeacherService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,8 +19,8 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @GetMapping
-    public List<TeacherResponseDto> getAll() {
-        return teacherService.getAll();
+    public ResponseEntity<List<TeacherResponseDto>> getAll() {
+        return ResponseEntity.ok(teacherService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -32,19 +34,20 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> create(@Validated(OnCreate.class) @RequestBody TeacherRequestDto dto) {
         teacherService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PatchMapping("/{id}")
-    public void update(@PathVariable Long id, @Valid @RequestBody TeacherRequestDto dto) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @Validated(OnUpdate.class) @RequestBody TeacherRequestDto dto) {
         teacherService.update(id, dto);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         teacherService.delete(id);
-
+        return ResponseEntity.noContent().build();
     }
 }
