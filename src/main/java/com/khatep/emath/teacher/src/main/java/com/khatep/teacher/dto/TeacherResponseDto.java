@@ -10,5 +10,5 @@ public class TeacherResponseDto {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Boolean active;
+    private boolean active;
 }

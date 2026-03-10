@@ -33,7 +33,7 @@ public class Teacher {
 
     @Builder.Default
     @Column(nullable = false)
-    private Boolean active = true;
+    private boolean active = true;
 
     private LocalDate hireDate;
 
