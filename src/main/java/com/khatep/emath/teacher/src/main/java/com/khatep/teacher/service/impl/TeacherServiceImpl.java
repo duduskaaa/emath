@@ -45,7 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Page<TeacherResponseDto> getAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         return teacherRepository.findAll(pageable)
                 .map(teacherMapper::toTeacherResponseDto);
     }
