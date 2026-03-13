@@ -4,6 +4,9 @@ import com.khatep.teacher.dto.*;
 import com.khatep.teacher.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
@@ -21,10 +24,11 @@ public class TeacherController {
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<TeacherResponseDto>>> getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size)
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.ASC)
+            Pageable pageable
+    )
     {
-        Page<TeacherResponseDto> dtoPage = teacherService.getAll(page, size);
+        Page<TeacherResponseDto> dtoPage = teacherService.getAll(pageable);
         return ResponseEntity.ok(assembler.toModel(dtoPage, EntityModel::of));
     }
 

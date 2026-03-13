@@ -4,8 +4,7 @@ import com.khatep.teacher.dto.TeacherRequestDto;
 import com.khatep.teacher.dto.TeacherResponseDto;
 import com.khatep.teacher.dto.TeacherUpdateRequestDto;
 import org.springframework.data.domain.Page;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
+import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
     void create(TeacherRequestDto teacherRequestDto);
@@ -14,7 +13,7 @@ public interface TeacherService {
 
     TeacherResponseDto getByEmail(String email);
 
-    Page<TeacherResponseDto> getAll(int page, int size);
+    Page<TeacherResponseDto> getAll(Pageable pageable);
 
     void update(Long id, TeacherUpdateRequestDto teacherUpdateRequestDto);
 

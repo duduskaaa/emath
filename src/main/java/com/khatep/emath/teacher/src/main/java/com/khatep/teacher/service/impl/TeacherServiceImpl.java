@@ -9,9 +9,7 @@ import com.khatep.teacher.entity.Teacher;
 import com.khatep.teacher.mapper.TeacherMapper;
 import com.khatep.teacher.service.TeacherService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,8 +42,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Page<TeacherResponseDto> getAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+    public Page<TeacherResponseDto> getAll(Pageable pageable) {;
         return teacherRepository.findAll(pageable)
                 .map(teacherMapper::toTeacherResponseDto);
     }
