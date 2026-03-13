@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     Optional<Teacher> findByEmail(String email);
 
-    Page<Teacher> findAll(Pageable pageable);
 
     @Modifying
     @Transactional
