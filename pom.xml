@@ -8,6 +8,13 @@
 		<version>4.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
+	<packaging>pom</packaging>
+	<modules>
+		<module>teacher</module>
+		<module>parent</module>
+		<module>child</module>
+	</modules>
 	<groupId>com.khatep</groupId>
 	<artifactId>emath</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
