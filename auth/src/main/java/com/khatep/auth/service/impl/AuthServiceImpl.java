@@ -3,7 +3,9 @@ package com.khatep.auth.service.impl;
 import com.khatep.auth.dto.AuthRequestDto;
 import com.khatep.auth.entity.User;
 import com.khatep.auth.enums.Role;
+import com.khatep.auth.exceptions.business.InvalidCredentialsException;
 import com.khatep.auth.exceptions.business.UserEmailAlreadyExistsException;
+import com.khatep.auth.exceptions.business.UserNotFoundException;
 import com.khatep.auth.mapper.UserMapper;
 import com.khatep.auth.repository.UserRepository;
 import com.khatep.auth.service.AuthService;
@@ -37,6 +39,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public String login(AuthRequestDto loginRequestDto) {
-        return "";
+        String email = loginRequestDto.getEmail();
+        String password = loginRequestDto.getPassword();
+
+        User user = userRepository.findByEmail(email)
+                        .orElseThrow(() -> new UserNotFoundException("User with email "+email+" not found"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid password or email");
+        }
+
+        return jwtService.generateToken(user);
     }
 }
