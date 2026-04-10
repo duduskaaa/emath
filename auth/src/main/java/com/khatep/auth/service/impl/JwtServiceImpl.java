@@ -2,6 +2,7 @@ package com.khatep.auth.service.impl;
 
 import com.khatep.auth.entity.User;
 import com.khatep.auth.service.JwtService;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -50,7 +51,11 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        return false;
+        try {
+            return extractUsername(token).equals(userDetails.getUsername());
+        } catch (JwtException ex) {
+            return false;
+        }
     }
 
     @PostConstruct
