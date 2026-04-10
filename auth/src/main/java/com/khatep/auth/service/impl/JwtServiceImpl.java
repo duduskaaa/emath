@@ -29,7 +29,8 @@ public class JwtServiceImpl implements JwtService {
         String userId = String.valueOf(user.getId());
 
         return Jwts.builder()
-                .subject(userId)
+                .subject(user.getEmail())
+                .claim("userId", userId)
                 .claim("role", user.getRole())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plus(1, ChronoUnit.HOURS)))
@@ -38,8 +39,13 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public UUID extractUserId(String token) {
-        return null;
+    public String extractUsername(String token) {
+         return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
     }
 
     @Override

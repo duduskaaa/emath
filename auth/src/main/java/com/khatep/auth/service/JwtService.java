@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface JwtService {
     String generateToken(User user);
 
-    UUID extractUserId(String token);
+    String extractUsername(String token);
 
     boolean isTokenValid(String token, UserDetails userDetails);
 }
