@@ -1,0 +1,17 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# docs/ — working notes (BRD, ADR, kanban board), not committed for now
+docs/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
