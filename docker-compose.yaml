@@ -16,7 +16,7 @@ services:
     ports:
       - 8100:8080
     environment:
-      - DB_HOST: identity-db
+      DB_HOST: identity-db
     depends_on:
       - identity-db
 
