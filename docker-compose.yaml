@@ -12,10 +12,13 @@ services:
 
   identity-service:
     build:
-      context: ./identity-service/microservice/
+      context: ./identity-service/
     ports:
       - 8100:8080
     environment:
-      DB_HOST=identity-db
+      - DB_HOST: identity-db
     depends_on:
       - identity-db
+
+volumes:
+  identity-db-data:
