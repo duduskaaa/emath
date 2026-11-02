@@ -16,6 +16,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>usecase</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>api-adapter-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.emath.identity</groupId>
+            <artifactId>spi-adapter-jpa</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -26,11 +50,7 @@
                 <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>
-                                repackage
-                            </goal>
-                        </goals>
+                        <goals><goal>repackage</goal></goals>
                     </execution>
                 </executions>
             </plugin>
