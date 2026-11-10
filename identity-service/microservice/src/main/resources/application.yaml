@@ -16,3 +16,14 @@ security:
       parallelism: 1
       memory: 19456
       iterations: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
